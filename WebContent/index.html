@@ -41,8 +41,8 @@
            
             <ul class="nav nav-sidebar">
               <li class="active"><a href="#">Overview</a></li>
-              <li><a href="#">Reports</a></li>
-              <li><a href="#">Analytics</a></li>
+              <li><a href="#" id = 'add_venue'>Add new Venue</a></li>
+              <li><a href="#" id = 'add_refree'>Add new Refree</a></li>
               <li><a href="#">Export</a></li>
             </ul>
         </div>
@@ -53,10 +53,8 @@
           </p>
           
 		  <h1 class="page-header">GFA Tournament Planner</h1>
-
-      <h2 class="sub-header">Add new tournament</h2>
-          <div>
-            <!-- This is the main class-->
+          <div id="main_div">
+            <h2 class="sub-header">Admin Login</h2>
             <form class="form-horizontal" role="form" action="login" method = "POST">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="username">Username:</label>
@@ -85,5 +83,14 @@
     <script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/scripts.js"></script>
+    <script type="text/javascript">
+           $('#add_venue').click(function(){
+               $('#main_div').load('ajax/add_venue_form.html');
+           });
+
+           $('#add_refree').click(function(){
+               $('#main_div').load('ajax/add_refree_form.html');
+           });
+        </script>  
 	</body>
 </html>

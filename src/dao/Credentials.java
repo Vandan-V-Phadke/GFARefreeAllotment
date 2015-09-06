@@ -2,7 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.xml.transform.Result;
 
 public class Credentials {
 	
@@ -15,6 +18,13 @@ public class Credentials {
 			String query = "SELECT `USER_PASSWORD` FROM `table_users` WHERE `USER_NAME` = '?'";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, username);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.wasNull())
+				return false;
+			else{
+				
+			}
 		}catch(ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 		}
