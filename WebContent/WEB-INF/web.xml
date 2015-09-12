@@ -28,12 +28,4 @@
         <servlet-name>AddRefreeServlet</servlet-name>
         <url-pattern>/addrefree</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>GetVenuesServlet</servlet-name>
-        <servlet-class>GetVenuesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GetVenuesServlet</servlet-name>
-        <url-pattern>/getvenues</url-pattern>
-    </servlet-mapping>
 </web-app>

@@ -9,15 +9,16 @@ import java.util.ArrayList;
 import models.Venue;
 
 public class Venues {
-	public static void addNewVenue(Venue venue){
+	public static boolean addNewVenue(Venue venue){
 		SQLConnection sqlConnection = new SQLConnection();
 		PreparedStatement pstmt = null;
 		try{
 			Connection conn = sqlConnection.getConnection();
 			String query = "INSERT INTO `gfa`.`table_venues` (`venue_name`, `venue_primary_phone`, "
 					+ "`venue_secondary_phone`, `venue_email`, `venue_location`, `venue_gfa_zone`, "
-					+ "`venue_taluka`, `venue_organizer`, `venue_owner_name`) VALUES ('?', "
-					+ "'?', '?', '?', '?', '?', '?', '?', '?');";
+					+ "`venue_taluka`, `venue_organizer`, `venue_owner_name`) VALUES (?, "
+					+ "?, ?, ?, ?, ?, ?, ?, ?);";
+			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, venue.getVenue_name());
 			pstmt.setString(2, venue.getOwner_primary_phone());
@@ -27,7 +28,10 @@ public class Venues {
 			pstmt.setString(6, venue.getVenue_zone());
 			pstmt.setString(7, venue.getVenue_taluka());
 			pstmt.setString(8, venue.getVenue_oraganizer());
-			pstmt.setString(8, venue.getOwner_name());
+			pstmt.setString(9, venue.getOwner_name());
+			
+			boolean done = pstmt.execute();
+			return done; 
 			
 		}catch(ClassNotFoundException | SQLException e){
 			e.printStackTrace();
@@ -40,6 +44,7 @@ public class Venues {
 				e.printStackTrace();
 			}
 		}
+		return false;
 	}
 	
 	public static ArrayList<String> getAllVenueNames(){
