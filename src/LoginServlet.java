@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.Credentials;
+
 public class LoginServlet extends HttpServlet{
 	
 	@Override
@@ -14,9 +16,24 @@ public class LoginServlet extends HttpServlet{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		
-		response.setContentType("text/html");
-	    PrintWriter out = response.getWriter();
-		out.println("<h1> " + username + "  " + password);
+		Credentials newUser = new Credentials(username, password);
+		
+		if(newUser.validateUser() == 1){
+			//This is admin login for staff
+			System.out.println("Admin Login");
+			response.sendRedirect("admin.html");
+		}
+		else if(newUser.validateUser() == 2){
+			//This is refree admin login
+			
+		}
+		else if(newUser.validateUser() == 3){
+			//This is document login admin
+		}
+		else{
+			//incorrect parameters
+			//Redirect to error page
+		}
 	}
 	
 	@Override

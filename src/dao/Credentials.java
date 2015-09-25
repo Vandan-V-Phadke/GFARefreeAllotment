@@ -5,25 +5,38 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.xml.transform.Result;
-
 public class Credentials {
 	
-	String password = "";
-	public static boolean doesUserExist(String username){
+	String username, password;
+	
+	public Credentials(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+	
+	public int validateUser(){
+		System.out.println(username + "  " + password);
 		SQLConnection sqlConnection = new SQLConnection();
 		PreparedStatement pstmt = null;
 		try{
 			Connection conn = sqlConnection.getConnection();
-			String query = "SELECT `USER_PASSWORD` FROM `table_users` WHERE `USER_NAME` = '?'";
+			String query = "SELECT `USER_PASSWORD`, `USER_PRIVILEGE` FROM `table_users` WHERE `USER_NAME` = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, username);
-			
+			System.out.println(query);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.wasNull())
-				return false;
+				return -1;
 			else{
-				
+				String passStr = "";
+				rs.next();
+				passStr = rs.getString("USER_PASSWORD");
+				if(passStr.equals(password.trim())){
+					return Integer.parseInt(rs.getString("USER_PRIVILEGE"));
+				}
+				else{
+					return -1; 
+				}
 			}
 		}catch(ClassNotFoundException | SQLException e){
 			e.printStackTrace();
@@ -36,9 +49,7 @@ public class Credentials {
 				e.printStackTrace();
 			}
 		}
-		return false;
+		return -1;
 	}
-	public static boolean verifyPassword(){
-		return false;
-	}
+	
 }

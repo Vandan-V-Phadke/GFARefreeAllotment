@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
   <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>LoginServlet</servlet-class>
@@ -12,6 +13,7 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>AddVenueServlet</servlet-name>
         <servlet-class>AddVenueServlet</servlet-class>
@@ -20,6 +22,7 @@
         <servlet-name>AddVenueServlet</servlet-name>
         <url-pattern>/addvenue</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>AddRefreeServlet</servlet-name>
         <servlet-class>AddRefreeServlet</servlet-class>
@@ -27,5 +30,14 @@
     <servlet-mapping>
         <servlet-name>AddRefreeServlet</servlet-name>
         <url-pattern>/addrefree</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AddTournament</servlet-name>
+        <servlet-class>AddTournament</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTournament</servlet-name>
+        <url-pattern>/newtournament</url-pattern>
     </servlet-mapping>
 </web-app>
