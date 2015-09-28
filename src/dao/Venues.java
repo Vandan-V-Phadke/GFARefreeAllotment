@@ -74,4 +74,58 @@ public class Venues {
 		
 		return venue_names;
 	}
+	
+	public static String getVenueNamefromId(String venue_id){
+		SQLConnection sqlConnection = new SQLConnection();
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = sqlConnection.getConnection();
+			String query = "SELECT `venue_name` FROM `table_venues` WHERE `venue_id` = '" + venue_id + "'";
+			
+			pstmt = conn.prepareStatement(query);
+			System.out.println(pstmt.toString());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			String venue_name = rs.getString("venue_name");
+			return venue_name;
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
+	
+	public static String getVenueIdfromName(String venue_name){
+		SQLConnection sqlConnection = new SQLConnection();
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = sqlConnection.getConnection();
+			String query = "SELECT `venue_id` FROM `table_venues` WHERE `venue_name` = '" + venue_name + "'";
+			
+			pstmt = conn.prepareStatement(query);
+			System.out.println(pstmt.toString());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			String venue_id = rs.getString("venue_id");
+			return venue_id;
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
 }

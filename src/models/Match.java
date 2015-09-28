@@ -7,17 +7,13 @@ public class Match {
 	String teamA;
 	String teamB;
 	String venue;
-	String main_referee;
-	String first_assistant_referee;
-	String second_assistant_referee;
 	String fourth_official;
 	String match_commissioner;
 	String standby_official; 
 	String match_organizer;
 	
 	public Match(int match_no, String round, String match_type, String teamA,
-			String teamB, String venue, String main_referee,
-			String first_assistant_referee, String second_assistant_referee,
+			String teamB, String venue,
 			String fourth_official, String match_commissioner,
 			String standby_official, String match_organizer) {
 		this.match_no = match_no;
@@ -26,9 +22,6 @@ public class Match {
 		this.teamA = teamA;
 		this.teamB = teamB;
 		this.venue = venue;
-		this.main_referee = main_referee;
-		this.first_assistant_referee = first_assistant_referee;
-		this.second_assistant_referee = second_assistant_referee;
 		this.fourth_official = fourth_official;
 		this.match_commissioner = match_commissioner;
 		this.standby_official = standby_official;
@@ -81,30 +74,6 @@ public class Match {
 
 	public void setVenue(String venue) {
 		this.venue = venue;
-	}
-
-	public String getMain_referee() {
-		return main_referee;
-	}
-
-	public void setMain_referee(String main_referee) {
-		this.main_referee = main_referee;
-	}
-
-	public String getFirst_assistant_referee() {
-		return first_assistant_referee;
-	}
-
-	public void setFirst_assistant_referee(String first_assistant_referee) {
-		this.first_assistant_referee = first_assistant_referee;
-	}
-
-	public String getSecond_assistant_referee() {
-		return second_assistant_referee;
-	}
-
-	public void setSecond_assistant_referee(String second_assistant_referee) {
-		this.second_assistant_referee = second_assistant_referee;
 	}
 
 	public String getFourth_official() {

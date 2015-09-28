@@ -113,4 +113,63 @@ public class Referees {
 		return zones;
 		
 	}
+	
+	public static ArrayList<String> getRefereesForTournament(String tournament_name){
+		ArrayList<String> referees = new ArrayList<String>();
+		String tour_id = Tournaments.getTournamentId(tournament_name);
+		SQLConnection sqlConnection = new SQLConnection();
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = sqlConnection.getConnection();
+			String query = "SELECT * FROM `table_referee_tournament` WHERE `tournament_id` = " + tour_id;
+			
+			pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				String ref_id = rs.getString("referee_id");
+				referees.add(getRefereeNamefromId(ref_id));
+			}
+			
+			return referees;
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null; 
+	}
+	
+	public static String getRefereeNamefromId(String referee_id){
+		SQLConnection sqlConnection = new SQLConnection();
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = sqlConnection.getConnection();
+			String query = "SELECT `refree_first_name`, `refree_last_name` FROM "
+					+ "`table_refree` WHERE `refree_id` = ' " + referee_id + "'";
+			pstmt = conn.prepareStatement(query);
+			System.out.println(pstmt.toString());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			String referee_name = rs.getString("refree_first_name") + " " + rs.getString("refree_last_name");
+			return referee_name;
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
 }

@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Tournaments {
@@ -26,8 +27,44 @@ public class Tournaments {
 		}catch(ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return false;
 		
+	}
+	
+	public static String getTournamentId(String tournament_name){
+		SQLConnection sqlConnection = new SQLConnection();
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = sqlConnection.getConnection();
+			String query = "SELECT `tournament_id` FROM `table_tournament` WHERE `tournament_name` = ?";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, tournament_name);
+			
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			String tournament_id = rs.getString("tournament_id");
+			return tournament_id;
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return "";
 	}
 
 }

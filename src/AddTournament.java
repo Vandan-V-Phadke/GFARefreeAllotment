@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import dao.Tournaments;
 
 
 public class AddTournament extends HttpServlet{
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -25,7 +25,7 @@ public class AddTournament extends HttpServlet{
 		//Redirect to adding matches page
 		HttpSession session = req.getSession();
 		session.setAttribute("tournament_name",name);
-		resp.sendRedirect("addmatches.jsp");
+		resp.sendRedirect("add_matches.jsp");
 		
 	}
 	
