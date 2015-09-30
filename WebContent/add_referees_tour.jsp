@@ -44,17 +44,26 @@
     <div>
     <h2 class="sub-header">Add a new Match</h2>
         <form class="form-horizontal" role="form" action="addmatch" method = "POST">
+            
             <div class="form-group">
-                <label class="control-label col-sm-2">Match Number</label>
+                <label class="control-label col-sm-2">Referee Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name = "matchno" >
+                	<select class="form-control" name = "refname">
+                        <% 
+                            ArrayList<String> referees = Referees.getAllReferees();
+                            for(String ref: referees){
+                                out.print("<option>" + ref + "</option>");
+                                out.print("</br>");
+                            }
+                        %>
+                    </select>
                 </div>
             </div>
             
             
             <div class="form-group"> 
                 <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Add New Match</button>
+                  <button type="submit" class="btn btn-default">Add Referee</button>
                 </div>
             </div>
             

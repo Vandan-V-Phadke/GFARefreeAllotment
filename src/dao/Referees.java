@@ -16,9 +16,9 @@ public class Referees {
 		sqlConnection = new SQLConnection();
 		
 		try{
-			int first_pref_id = getGrouundIdFromName(ref.getRefree_first_preference());
-			int second_pref_id = getGrouundIdFromName(ref.getRefree_first_preference());
-			int third_pref_id = getGrouundIdFromName(ref.getRefree_first_preference());
+			String first_pref_id = Venues.getVenueIdfromName(ref.getRefree_first_preference());
+			String second_pref_id = Venues.getVenueIdfromName(ref.getRefree_second_preference());
+			String third_pref_id = Venues.getVenueIdfromName(ref.getRefree_third_preference());
 			int zone = getZoneIdFromName(ref.getRefree_gfa_zone());
 			
 			Connection conn = sqlConnection.getConnection();
@@ -39,9 +39,9 @@ public class Referees {
 			pstmt.setString(7, ref.getRefree_residence());
 			pstmt.setInt(8, zone);
 			pstmt.setString(9, ref.getRefree_taluka());
-			pstmt.setInt(10, first_pref_id);
-			pstmt.setInt(11, second_pref_id);
-			pstmt.setInt(12, third_pref_id);
+			pstmt.setString(10, first_pref_id);
+			pstmt.setString(11, second_pref_id);
+			pstmt.setString(12, third_pref_id);
 			pstmt.setString(13, ref.getRefree_aiff_rin_id());
 			pstmt.setString(14, ref.getRefree_class());
 			
@@ -58,19 +58,6 @@ public class Referees {
 		return false; 
 	}
 	
-	
-	private static int getGrouundIdFromName(String ground_name) throws SQLException, ClassNotFoundException{
-		int id = 0 ; 
-		PreparedStatement pstmt = null;
-		String query = "SELECT `venue_id` FROM `table_venues` WHERE venue_name = ?";
-		Connection conn = sqlConnection.getConnection();
-		pstmt = conn.prepareStatement(query);
-		pstmt.setString(1, ground_name);
-		ResultSet rs = pstmt.executeQuery();
-		rs.first();
-		id = Integer.parseInt(rs.getString("venue_id"));
-		return id;
-	}
 	
 	private static int getZoneIdFromName(String zone_name) throws SQLException, ClassNotFoundException{
 		int id = 0 ; 
@@ -171,5 +158,37 @@ public class Referees {
 			}
 		}
 		return "";
+	}
+	
+	public static ArrayList<String> getAllReferees(){
+		ArrayList<String> referees = new ArrayList<String>();
+		SQLConnection sqlConnection = new SQLConnection();
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = sqlConnection.getConnection();
+			String query = "SELECT * FROM `table_refree`";
+			
+			pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				String ref_firstname = rs.getString("refree_first_name");
+				String ref_second = rs.getString("refree_second_name");
+				referees.add(ref_firstname + " " + ref_second);
+			}
+			
+			return referees;
+		}catch(ClassNotFoundException | SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+
+			try {
+				sqlConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null; 
 	}
 }
